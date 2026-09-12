@@ -1,0 +1,34 @@
+﻿========================================================================
+CONFIDENTIAL // RESTRICTED DISTRIBUTION
+NOVABYTE SYSTEMS â€” ENTERPRISE PILOT ONBOARDING DIRECTORY
+========================================================================
+
+Document ID: PILOT-DOC-2026-Q3
+Security Classification: STRICTLY INTERNAL (NOT FOR PUBLIC RELEASE)
+Target Project: Project Aegis Vault (v1.0 Beta)
+
+OVERVIEW:
+This document records the corporate pilot accounts configured for the 
+pre-launch security test of the Aegis Vault platform.
+
+AUTHORIZED ENTERPRISE PILOT CLIENTS:
+------------------------------------------------------------------------
+1. Summit Health Care Group
+   Primary Contact: Dr. Arthur Vance
+   Assigned Nodes: 12 Cloud Vault Instances
+
+2. Apex Logistics International
+   Primary Contact: Cargo Security Operations
+   Assigned Nodes: 28 Telemetry Storage Nodes
+
+3. BlueRidge Financial Services
+   Primary Contact: Core Banking Integration Team
+   Assigned Nodes: 5 Dedicated Encryption Buckets
+------------------------------------------------------------------------
+
+DEPLOYMENT NOTES:
+- Staging test endpoints are restricted to authorized testing IP blocks.
+- Report all packet-level anomalies to Lead Dev Alex Mercer (alexm-novabyte).
+- Final public launch window locked for mid-November.
+
+========================================================================
