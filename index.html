@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,147 +12,767 @@
     -->
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent: #58a6ff;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --border: #30363d;
+            --bg-color: #0b0f17;
+            --surface: #121824;
+            --surface-card: #182234;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --border-hover: #334155;
         }
-        body {
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(11, 15, 23, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         header {
+            position: sticky;
+            top: 0;
+            background: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 100;
         }
-        .logo {
-            font-size: 1.5rem;
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), #0284c7);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--accent);
             letter-spacing: -0.5px;
         }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .btn-portal {
+            background: linear-gradient(135deg, var(--accent), #0284c7);
+            color: #0b0f17;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-portal:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero */
         .hero {
             text-align: center;
-            padding: 5rem 1rem 4rem;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 5rem 0 3.5rem;
         }
-        .hero h1 {
-            font-size: 2.8rem;
-            color: #ffffff;
-            margin-bottom: 1rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-        .badge {
-            background: rgba(88, 166, 255, 0.1);
+
+        .stealth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--surface-card);
+            border: 1px solid var(--border);
             color: var(--accent);
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(88, 166, 255, 0.3);
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
         }
-        .quote-box {
-            background: var(--card-bg);
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem;
-            margin: 3rem auto;
-            max-width: 700px;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-        }
-        .quote-author {
-            margin-top: 0.8rem;
-            font-weight: 600;
+
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.15;
             color: #ffffff;
-            font-style: normal;
-            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
         }
-        .team-grid {
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-cta-group {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            max-width: 900px;
-            margin: 4rem auto;
-            padding: 0 1rem;
+            gap: 1rem;
         }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            flex: 1;
-            text-align: center;
-        }
-        .card h3 {
-            margin: 0 0 0.5rem 0;
-            color: #ffffff;
-        }
-        .card .role {
-            color: var(--accent);
-            font-size: 0.9rem;
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0b0f17;
             font-weight: 600;
+            padding: 0.8rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #7dd3fc;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            font-weight: 600;
+            padding: 0.8rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-card);
+            border-color: var(--border-hover);
+        }
+
+        /* CEO Quote Box (Crucial Clue) */
+        .quote-box {
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            border: 1px solid var(--border);
+            border-left-width: 4px;
+            border-left-color: var(--accent);
+            padding: 2rem;
+            margin: 4rem auto;
+            max-width: 850px;
+            border-radius: 0 12px 12px 0;
+            position: relative;
+        }
+
+        .quote-icon {
+            font-size: 2.5rem;
+            color: var(--border-hover);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #e2e8f0;
             margin-bottom: 1rem;
         }
-        footer {
-            border-top: 1px solid var(--border);
+
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #0284c7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .author-details h4 {
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .author-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Architecture Explorer Section */
+        .section-header {
             text-align: center;
+            margin: 5rem 0 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .explorer-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .explorer-toolbar {
+            background: #0d131f;
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .explorer-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--surface-card);
+            color: var(--accent);
+        }
+
+        .diagram-container {
             padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #070a0f;
+        }
+
+        .diagram-container img, .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .explorer-footer {
+            padding: 1.25rem 1.5rem;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.85rem;
             color: var(--text-muted);
         }
+
+        /* Team Cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .team-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+
+        .avatar-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            border: 2px solid var(--border);
+        }
+
+        .av-vance { background: linear-gradient(135deg, #1e3a8a, #0284c7); }
+        .av-mercer { background: linear-gradient(135deg, #065f46, #10b981); border-color: var(--success); }
+        .av-sarah { background: linear-gradient(135deg, #6b21a8, #a855f7); }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-card .role {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .badge-github {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            color: #e2e8f0;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+
+        .badge-github:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Live Terminal Drawer */
+        .terminal-box {
+            background: #05080d;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin: 4rem 0;
+            overflow: hidden;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.85rem;
+        }
+
+        .terminal-header {
+            background: #0e141f;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .t-red { background: #ef4444; }
+        .t-yel { background: #f59e0b; }
+        .t-gre { background: #10b981; }
+
+        .terminal-body {
+            padding: 1.25rem;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .terminal-body .cmd-highlight { color: #38bdf8; }
+        .terminal-body .cmd-ok { color: #10b981; }
+        .terminal-body .cmd-warn { color: #f59e0b; }
+
+        /* Modal Popup */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            margin-top: 6rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        footer p { margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
 
+    <div class="ambient-glow"></div>
+
+    <!-- Header Navigation -->
     <header>
-        <div class="logo">NovaByte Systems</div>
-        <div style="font-size: 0.9rem; color: var(--text-muted);">Enterprise Data Isolation</div>
+        <a href="#" class="logo-group">
+            <div class="logo-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0f17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <div class="logo-text">Nova<span>Byte</span> Systems</div>
+        </a>
+
+        <nav>
+            <a href="#architecture">Architecture</a>
+            <a href="#leadership">Leadership</a>
+            <a href="#diagnostics">Diagnostics</a>
+        </nav>
+
+        <div class="nav-actions">
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                <span>Staging v0.9b Online</span>
+            </div>
+            <!-- OSINT Clue: Direct Link to Test Portal -->
+            <a href="test-portal/" class="btn-portal">Client Test Portal</a>
+        </div>
     </header>
 
-    <div class="hero">
-        <div class="badge">STEALTH MODE PREVIEW</div>
-        <h1>Zero Data Leaks.<br>Guaranteed Isolation.</h1>
-        <p>NovaByte Systems builds next-generation, private-ledger cloud infrastructure for high-compliance industries. Our systems are mathematically sealed against external exposure.</p>
+    <div class="container">
 
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="stealth-badge">
+                <span>&#128274;</span> STEALTH PILOT STAGE // ENCLAVE CLUSTER ACTIVE
+            </div>
+            <h1>Mathematical Isolation.<br><span>Zero Compromise.</span></h1>
+            <p>NovaByte Systems builds mathematically verified zero-knowledge cloud enclaves for sensitive healthcare, aerospace, and banking institutions.</p>
+
+            <div class="hero-cta-group">
+                <a href="#architecture" class="btn-primary">Explore Topology</a>
+                <button class="btn-secondary" onclick="openModal()">Request Pilot Access</button>
+            </div>
+        </section>
+
+        <!-- CEO Quote Box (The Smoking Gun Clue) -->
         <div class="quote-box">
-            "We built NovaByte on absolute zero-knowledge principles. Our upcoming flagship platform and our pilot partners remain entirely confidential. Not a single trace exists on the public internet."
-            <div class="quote-author">— David Vance, Chief Executive Officer</div>
+            <div class="quote-icon">&ldquo;</div>
+            <p class="quote-text">
+                "We built NovaByte on absolute zero-knowledge principles. Our upcoming flagship platform and our pilot partners remain entirely confidential. Not a single trace exists on the public internet."
+            </p>
+            <div class="quote-author">
+                <div class="author-avatar">DV</div>
+                <div class="author-details">
+                    <h4>David Vance</h4>
+                    <p>Chief Executive Officer, NovaByte Systems, Inc.</p>
+                </div>
+            </div>
         </div>
+
+        <!-- Architecture Section -->
+        <section id="architecture">
+            <div class="section-header">
+                <h2>Project Aegis Vault Topology</h2>
+                <p>Interactive verification map of our private multi-tenant isolation core.</p>
+            </div>
+
+            <div class="explorer-card">
+                <div class="explorer-toolbar">
+                    <div class="explorer-tabs">
+                        <button class="tab-btn active" onclick="switchTab('all')">Network Diagram</button>
+                        <button class="tab-btn" onclick="switchTab('portal')">Staging Access</button>
+                        <button class="tab-btn" onclick="switchTab('nodes')">Pilot Nodes</button>
+                    </div>
+                    <div style="font-family: monospace; font-size: 0.8rem; color: #58a6ff;">
+                        ENCLAVE ID: US-EAST-01
+                    </div>
+                </div>
+
+                <div class="diagram-container">
+                    <img src="assets/architecture_diagram.svg" alt="NovaByte Architecture Diagram" id="diagramImg">
+                </div>
+
+                <div class="explorer-footer">
+                    <span id="tabDescription">Displaying complete multi-tier zero-knowledge isolation boundary.</span>
+                    <span>Lead Architect: <strong>Alex Mercer</strong></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Team -->
+        <section id="leadership">
+            <div class="section-header">
+                <h2>Engineering &amp; Executive Leadership</h2>
+                <p>Meet the architects behind the NovaByte isolation protocol.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- CEO -->
+                <div class="team-card">
+                    <div class="avatar-circle av-vance">DV</div>
+                    <h3>David Vance</h3>
+                    <div class="role">Chief Executive Officer</div>
+                    <p>Former defense computing consultant with 15+ years overseeing sovereign data segregation.</p>
+                    <span style="font-size: 0.8rem; color: #8b949e;">San Francisco, CA</span>
+                </div>
+
+                <!-- Lead Dev (Crucial Clue) -->
+                <div class="team-card">
+                    <div class="avatar-circle av-mercer">AM</div>
+                    <h3>Alex Mercer</h3>
+                    <div class="role">Lead Systems Architect</div>
+                    <!-- Developer profile: alexm-novabyte -->
+                    <p>Specializing in lattice-based cryptography, secure memory enclaves, and distributed consensus.</p>
+                    <a href="https://github.com/alexm-novabyte" target="_blank" class="badge-github">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        alexm-novabyte
+                    </a>
+                </div>
+
+                <!-- VP Compliance -->
+                <div class="team-card">
+                    <div class="avatar-circle av-sarah">SJ</div>
+                    <h3>Sarah Jenkins</h3>
+                    <div class="role">VP, Enterprise Partnerships</div>
+                    <p>Overseeing institutional onboarding and pilot agreements for healthcare and logistics networks.</p>
+                    <span style="font-size: 0.8rem; color: #8b949e;">Boston, MA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal Widget -->
+        <section id="diagnostics">
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="t-dot t-red"></div>
+                        <div class="t-dot t-yel"></div>
+                        <div class="t-dot t-gre"></div>
+                    </div>
+                    <div style="color: #94a3b8; font-size: 0.75rem;">novabyte-staging-console // build-hash: 6ab7b9c</div>
+                    <button onclick="pingSystem()" style="background: transparent; border: 1px solid var(--border); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">Ping Gateway</button>
+                </div>
+                <div class="terminal-body" id="termOutput">
+                    <div>[08:14:02] <span class="cmd-ok">ONLINE</span> Initializing Project Aegis Vault (v0.9.8b)...</div>
+                    <div>[08:14:02] <span class="cmd-ok">HEALTHCARE NODE</span> Handshake confirmed with pilot cluster.</div>
+                    <div>[08:14:03] <span class="cmd-highlight">ARCHITECT AUTH</span> Logged in: Alex Mercer (alexm-novabyte).</div>
+                    <div>[08:14:03] <span class="cmd-warn">ROUTING NOTICE</span> Staging portal operational at: /test-portal/</div>
+                    <div>[08:14:04] <span class="cmd-highlight">TARGET WINDOW</span> Public release scheduled: November 14, 2026.</div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="team-grid">
-        <div class="card">
-            <h3>David Vance</h3>
-            <div class="role">Chief Executive Officer</div>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Former enterprise security consultant with 15+ years of experience in defense computing.</p>
-        </div>
-        <div class="card">
-            <h3>Alex Mercer</h3>
-            <div class="role">Lead Systems Architect</div>
-            <!-- Developer profile: alexm-novabyte -->
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Specializing in backend security, distributed storage protocols, and zero-knowledge encryption.</p>
+    <!-- Modal Dialog -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 style="color: #ffffff; margin-bottom: 0.5rem;">Enterprise Pilot Program</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                NovaByte Systems is currently operating under restricted enterprise invitation. Access keys are strictly limited to authorized pilot participants.
+            </p>
+            <div style="background: #0d1117; border: 1px solid var(--border); padding: 1rem; border-radius: 6px; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1.5rem;">
+                <strong>Notice for Authorized Pilot Partners:</strong><br>
+                Please verify your assigned cluster nodes in the <code>client_onboarding_pilot.txt</code> distribution archive.
+            </div>
+            <button class="btn-primary" style="width: 100%; text-align: center;" onclick="closeModal()">Understood</button>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 NovaByte Systems, Inc. All rights reserved.</p>
-        <p>Inquiries: contact@novabyte-systems.internal</p>
+        <div class="container">
+            <p>&copy; 2026 NovaByte Systems, Inc. All rights reserved.</p>
+            <p style="font-family: monospace; color: #64748b;">Enterprise Enclave Hash: b4f91c2 | Architecture: Alex Mercer</p>
+        </div>
     </footer>
 
+    <script>
+        // Console Easter Egg for F12 Inspector
+        console.info("%cNovaByte Systems Security Core v0.9b", "color: #38bdf8; font-size: 14px; font-weight: bold;");
+        console.info("Lead Systems Architect: Alex Mercer (@alexm-novabyte)");
+        console.info("Staging test portal available at: /test-portal/");
+        console.warn("Notice: /pilot-announcement.html has been removed from the server per CEO stealth policy.");
+
+        function openModal() {
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        function switchTab(tab) {
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const desc = document.getElementById('tabDescription');
+            if (tab === 'portal') {
+                desc.innerHTML = "Staging portal endpoint active at <code>/test-portal/</code> for enterprise testers.";
+            } else if (tab === 'nodes') {
+                desc.innerHTML = "Connected Pilot Nodes: Summit Health Care (Node 01), Apex Logistics (Node 02), BlueRidge Financial (Node 03).";
+            } else {
+                desc.innerHTML = "Displaying complete multi-tier zero-knowledge isolation boundary.";
+            }
+        }
+
+        function pingSystem() {
+            const out = document.getElementById('termOutput');
+            const now = new Date().toLocaleTimeString();
+            out.innerHTML += `<div>[${now}] <span class="cmd-ok">PING 200 OK</span> Gateway response time: 24ms | Route: /test-portal/</div>`;
+            out.scrollTop = out.scrollHeight;
+        }
+    </script>
 </body>
 </html>
