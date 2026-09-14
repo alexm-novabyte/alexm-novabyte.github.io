@@ -1,0 +1,10 @@
+Contact: mailto:security@novabyte-systems.internal
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://alexm-novabyte.github.io/novabyte-systems/security.txt
+Policy: https://alexm-novabyte.github.io/novabyte-systems/#compliance
+
+# Internal Security Dispatch:
+# Lead Security Contact: Alex Mercer (alexm-novabyte)
+# Internal Staging Gateway: /test-portal/
+# Enclave Cluster: US-EAST-01 (Delaware Reg: DE-7849102)
