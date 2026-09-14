@@ -1,4 +1,4 @@
-﻿# Alex's Dev Notes & Sprint Checklist (Personal Scratchpad)
+# Alex's Dev Notes & Sprint Checklist (Personal Scratchpad)
 # Project: NovaByte Core Infrastructure
 
 TASKS FOR SPRINT 14:
@@ -6,7 +6,8 @@ TASKS FOR SPRINT 14:
 [x] Discuss release timeline with David Vance
     --> Confirmed public launch date: November 14th
 [x] Finalize official branding: "Aegis Vault" (drop the old code name)
+[x] Take down /pilot-announcement.html from web server (done - hope nobody archived it!)
 [ ] TODO: Clean up client_onboarding_pilot.txt from public root directory!
-    --> David said this client list must be kept confidential before the press release.
+    --> David said this full client list must be kept confidential before the press release.
 [ ] Move staging database to private VPC
 [ ] Buy snacks for late-night launch deployment on the 14th!
