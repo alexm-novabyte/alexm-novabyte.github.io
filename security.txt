@@ -1,8 +1,8 @@
 Contact: mailto:security@novabyte-systems.internal
 Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://alexm-novabyte.github.io/novabyte-systems/security.txt
-Policy: https://alexm-novabyte.github.io/novabyte-systems/#compliance
+Canonical: https://alexm-novabyte.github.io/security.txt
+Policy: https://alexm-novabyte.github.io/#compliance
 
 # Internal Security Dispatch:
 # Lead Security Contact: Alex Mercer (alexm-novabyte)
